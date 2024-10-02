@@ -16,16 +16,16 @@ public class AdminTest {
         ProductDao productDao = new ProductDao();
         ReviewDao reviewDao = new ReviewDao();
         CustomerDao customerDao = new CustomerDao();
-        DiscountDao discountDao = new DiscountDao();  // DiscountDao 추가
-        AccessLogDao accessLogDao = new AccessLogDao();  // AccessLogDao 추가
+        DiscountDao discountDao = new DiscountDao();
+        AccessLogDao accessLogDao = new AccessLogDao();
         ConnectionPool connectionPool = null;
 
         try {
-            // ConnectionPool 초기화
+
             connectionPool = ConnectionPool.create();
 
             try (Connection conn = connectionPool.getConnection()) {
-                conn.setAutoCommit(false); // 자동 커밋 끔
+                conn.setAutoCommit(false);
 
                 while (true) {
                     System.out.println("===== 관리자 시스템 =====");
@@ -42,22 +42,22 @@ public class AdminTest {
 
                     switch (choice) {
                         case 1:
-                            // 상품 관리
+
                             System.out.println("1. 상품 등록");
                             System.out.println("2. 상품 정보 수정");
                             System.out.println("3. 재고 관리");
                             int productChoice = scanner.nextInt();
                             switch (productChoice) {
                                 case 1:
-                                    // 상품 등록
+
                                     System.out.print("상품명을 입력하세요: ");
                                     String pname = scanner.next();
                                     System.out.print("카테고리 ID를 입력하세요: ");
                                     int categoryId = scanner.nextInt();
                                     System.out.print("할인 ID를 입력하세요 (없으면 0): ");
-                                    Integer disId = scanner.nextInt(); // Integer로 변경하여 null 값 허용
+                                    Integer disId = scanner.nextInt();
                                     if (disId == 0) {
-                                        disId = null; // 할인 ID가 0일 경우 null 처리
+                                        disId = null;
                                     }
                                     System.out.print("가격을 입력하세요: ");
                                     int price = scanner.nextInt();
@@ -71,11 +71,11 @@ public class AdminTest {
                                             "default_img3.jpg", "default_img4.jpg",
                                             "default_content", null, isPublic);
                                     productDao.insert(newProduct, conn);
-                                    conn.commit(); // 트랜잭션 커밋 추가
+                                    conn.commit();
                                     System.out.println("상품이 등록되었습니다.");
                                     break;
                                 case 2:
-                                    // 상품 정보 수정
+
                                     System.out.print("수정할 상품 ID를 입력하세요: ");
                                     int pid = scanner.nextInt();
                                     System.out.print("수정할 상품명을 입력하세요: ");
@@ -83,9 +83,9 @@ public class AdminTest {
                                     System.out.print("수정할 카테고리 ID를 입력하세요: ");
                                     int updatedCategoryId = scanner.nextInt();
                                     System.out.print("수정할 할인 ID를 입력하세요 (없으면 0): ");
-                                    Integer updatedDisId = scanner.nextInt(); // Integer로 변경하여 null 값 허용
+                                    Integer updatedDisId = scanner.nextInt();
                                     if (updatedDisId == 0) {
-                                        updatedDisId = null; // 할인 ID가 0일 경우 null 처리
+                                        updatedDisId = null;
                                     }
                                     System.out.print("수정할 가격을 입력하세요: ");
                                     int updatedPrice = scanner.nextInt();
@@ -94,18 +94,18 @@ public class AdminTest {
                                     System.out.print("공개 여부 (true/false): ");
                                     boolean updatedIsPublic = scanner.nextBoolean();
 
-                                    // 상품 정보 수정
+
                                     Product updatedProduct = new Product(pid, updatedCategoryId, updatedDisId, updatedPname, updatedPrice, updatedCnt,
                                             "default_img1.jpg", "default_img2.jpg",
                                             "default_img3.jpg", "default_img4.jpg",
                                             "default_content", null, updatedIsPublic);
                                     productDao.update(updatedProduct, conn);
-                                    conn.commit(); // 트랜잭션 커밋 추가
+                                    conn.commit();
                                     System.out.println("상품 정보가 수정되었습니다.");
                                     break;
 
                                 case 3:
-                                    // 재고 관리
+
                                     System.out.print("재고를 확인할 상품 ID를 입력하세요: ");
                                     int stockPid = scanner.nextInt();
                                     Product productStock = productDao.select(stockPid, conn);
@@ -118,7 +118,7 @@ public class AdminTest {
                                             int newStock = scanner.nextInt();
                                             productStock.setCnt(newStock);
                                             productDao.update(productStock, conn);
-                                            conn.commit(); // 트랜잭션 커밋 추가
+                                            conn.commit();
                                             System.out.println("재고가 업데이트되었습니다.");
                                         } else {
                                             System.out.println("재고 변경이 취소되었습니다.");
@@ -131,7 +131,7 @@ public class AdminTest {
                             break;
 
                         case 2:
-                            // 주문 목록 조회 및 입금 확인 처리
+
                             System.out.print("회원 ID를 입력하세요: ");
                             int cid = scanner.nextInt();
                             List<Order> orders = orderDao.selectByCid(cid, conn);
@@ -151,7 +151,7 @@ public class AdminTest {
                             break;
 
                         case 3:
-                            // 배송 목록 조회
+
                             System.out.println("1. 배송 중인 목록 조회");
                             System.out.println("2. 배송 완료 목록 조회");
                             int shippingChoice = scanner.nextInt();
@@ -174,7 +174,7 @@ public class AdminTest {
                             break;
 
                         case 4:
-                            // 회원 정보 관리
+
                             System.out.println("1. 회원 정보 조회");
                             System.out.println("2. 회원 정보 수정");
                             System.out.println("3. 회원 탈퇴");
@@ -219,7 +219,7 @@ public class AdminTest {
                             break;
 
                         case 5:
-                            // 접속 통계 확인
+
                             System.out.println("===== 접속 통계 =====");
                             System.out.println("1. 시간별 접속 통계");
                             System.out.println("2. 일별 접속 통계");
@@ -271,7 +271,7 @@ public class AdminTest {
                             break;
 
                         case 6:
-                            // 주문 통계 확인
+
                             System.out.println("1. 일별 주문 통계");
                             System.out.println("2. 월별 주문 통계");
                             int orderStatChoice = scanner.nextInt();
@@ -292,7 +292,7 @@ public class AdminTest {
                             break;
 
                         case 7:
-                            // 리뷰 관리
+
                             System.out.println("1. 리뷰 조회");
                             System.out.println("2. 리뷰 삭제");
                             int reviewChoice = scanner.nextInt();
@@ -327,7 +327,7 @@ public class AdminTest {
             e.printStackTrace();
             if (connectionPool != null) {
                 try (Connection conn = connectionPool.getConnection()) {
-                    conn.rollback(); // 예외 발생 시 롤백
+                    conn.rollback();
                 } catch (Exception rollbackEx) {
                     rollbackEx.printStackTrace();
                 }

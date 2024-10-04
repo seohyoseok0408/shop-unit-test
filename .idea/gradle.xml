@@ -10,6 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/admin" />
+            <option value="$PROJECT_DIR$/admin/test" />
           </set>
         </option>
       </GradleProjectSettings>

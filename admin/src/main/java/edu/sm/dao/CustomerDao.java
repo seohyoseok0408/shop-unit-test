@@ -14,25 +14,7 @@ public class CustomerDao implements Dao<Integer, Customer> {
 
     @Override
     public Customer insert(Customer customer, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement(Sql.INSERT_CUSTOMER);
-            ps.setString(1, customer.getPwd()); // 비밀번호 설정
-            ps.setString(2, customer.getCname());   // 이름 설정
-            ps.setString(3, customer.getEmail());   // 이메일 설정
-            ps.setString(4, customer.getPhone());   // 전화번호 설정
-            ps.setDate(5, customer.getBirth_date()); // 생년월일 설정
-            ps.setString(6, customer.getNick_name()); // 닉네임 설정
-            ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-        }
-        return customer;
+        return null;
     }
 
     @Override
@@ -79,35 +61,7 @@ public class CustomerDao implements Dao<Integer, Customer> {
 
     @Override
     public Customer select(Integer i, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Customer customer = null;
-        try {
-            ps = conn.prepareStatement(Sql.SELECT_CUSTOMER_BY_ID); // SQL 쿼리 사용
-            ps.setInt(1, i);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                customer = new Customer();
-                customer.setCid(rs.getInt("cid"));
-                customer.setEmail(rs.getString("email"));
-                customer.setCname(rs.getString("cname"));
-                customer.setPhone(rs.getString("phone"));
-                customer.setBirth_date(rs.getDate("birth_date")); // SQL Date 가져오기
-                customer.setNick_name(rs.getString("nick_name"));
-                customer.setGrade(rs.getInt("grade"));
-                customer.setJoin_date(rs.getTimestamp("join_date"));
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-            if (rs != null) {
-                rs.close();
-            }
-        }
-        return customer;
+        return null;
     }
 
     @Override

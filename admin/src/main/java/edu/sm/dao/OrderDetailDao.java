@@ -112,29 +112,6 @@ public class OrderDetailDao implements Dao<Integer, OrderDetail> {
 
     // 특정 주문에 대한 상세 내역 조회
     public List<OrderDetail> selectByOid(int oid, Connection conn) throws Exception {
-        List<OrderDetail> orderDetails = new ArrayList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            ps = conn.prepareStatement(Sql.SELECT_ORDER_DETAILS_BY_OID);
-            ps.setInt(1, oid);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                orderDetails.add(new OrderDetail(
-                        rs.getInt("order_detail_id"),
-                        rs.getInt("oid"),
-                        rs.getInt("pid"),
-                        rs.getInt("item_cnt"),
-                        rs.getInt("od_price")
-                ));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-        return orderDetails;
+        return null;
     }
 }

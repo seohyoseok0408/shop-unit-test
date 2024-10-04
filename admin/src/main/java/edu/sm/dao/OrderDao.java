@@ -16,24 +16,7 @@ public class OrderDao implements Dao<Integer, Order> {
 
     @Override
     public Order insert(Order order, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement(Sql.INSERT_ORDERS);
-            ps.setInt(1, order.getCid());
-            ps.setString(2, order.getOname());
-            ps.setString(3, order.getAddress());
-            ps.setString(4, order.getAddressDetail());
-            ps.setString(5, order.getZipCode());
-            ps.setString(6, order.getPhone());
-            ps.setString(7, order.getMsg());
-            ps.setInt(8, order.getPrice());  // price 추가
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-        }
-        return order;
+       return null;
     }
 
     @Override

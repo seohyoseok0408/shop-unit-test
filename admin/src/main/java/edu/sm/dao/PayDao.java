@@ -14,21 +14,7 @@ import java.util.List;
 public class PayDao implements Dao<Integer, Pay> {
     @Override
     public Pay insert(Pay pay, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement(Sql.INSERT_PAY);
-            ps.setInt(1, pay.getOid());
-            ps.setInt(2, pay.getPayPrice());
-            ps.setString(3, pay.getPayMethod());
-            ps.setLong(4, pay.getCard());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-        }
-        return pay;
+        return null;
     }
 
     @Override

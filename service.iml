@@ -3,10 +3,11 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/service">
+      <sourceFolder url="file://$MODULE_DIR$/service/test" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/service/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/service/build" />
     </content>
-    <orderEntry type="jdk" jdkName="17" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

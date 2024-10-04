@@ -84,19 +84,6 @@ public class ProductService implements MService<Integer, Product> {
         return products;
     }
 
-    public List<Product> getPublicProducts() throws Exception {
-        Connection conn = cp.getConnection();
-        List<Product> products = null;
-        try {
-            products = dao.selectPublicProducts(conn);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return products;
-    }
-
     // 카테고리별로 상품을 조회하는 메서드
     public List<Product> getProductsByCategory(int categoryId) throws Exception {
         Connection conn = cp.getConnection();
@@ -111,53 +98,11 @@ public class ProductService implements MService<Integer, Product> {
         return products;
     }
 
-    // 상품명을 이용해 조회하는 메서드
-    public List<Product> getByName(String pname) throws Exception {
-        Connection conn = cp.getConnection();
-        List<Product> products = null;
-        try {
-            products = dao.selectByName(pname, conn);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return products;
-    }
-
     public List<Product> getProductsSortedBy(String sortBy, Integer categoryId) throws Exception {
         Connection conn = cp.getConnection();
         List<Product> products = null;
         try {
             products = dao.selectAllSortedBy(sortBy, categoryId, conn);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return products;
-    }
-
-    // 공개된 상품을 카테고리별로 조회
-    public List<Product> getPublicProductsByCategory(int categoryId) throws Exception {
-        Connection conn = cp.getConnection();
-        List<Product> products;
-        try {
-            products = dao.selectPublicByCategory(categoryId, conn);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return products;
-    }
-
-    // 공개된 상품을 상품명으로 조회
-    public List<Product> getPublicByName(String pname) throws Exception {
-        Connection conn = cp.getConnection();
-        List<Product> products = null;
-        try {
-            products = dao.selectPublicByName(pname, conn);
         } catch (Exception e) {
             throw e;
         } finally {

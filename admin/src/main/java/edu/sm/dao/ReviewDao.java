@@ -13,61 +13,13 @@ import java.util.List;
 public class ReviewDao implements Dao<Integer, Review> {
 
     @Override
-    // 리뷰 추가 메서드
     public Review insert(Review review, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        // 동일한 상품에 대해 이미 리뷰를 작성했는지 확인
-        String checkQuery = Sql.CHECK_DUPLICATE_REVIEW;
-        ps = conn.prepareStatement(checkQuery);
-        ps.setInt(1, review.getCid());
-        ps.setInt(2, review.getPid());
-        rs = ps.executeQuery();
-
-        if (rs.next() && rs.getInt(1) > 0) {
-            throw new Exception("이미 해당 상품에 대한 리뷰를 작성하셨습니다.");
-        }
-
-        // 리뷰가 없을 경우에만 추가
-        try {
-            ps = conn.prepareStatement(Sql.INSERT_REVIEW);
-            ps.setInt(1, review.getPid());
-            ps.setInt(2, review.getCid());
-            ps.setInt(3, review.getRate());
-            ps.setString(4, review.getTitle());
-            ps.setString(5, review.getContent());
-            ps.setString(6, review.getImg());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-
-        return review;
+        return null;
     }
 
     @Override
     public Review update(Review review, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement(Sql.UPDATE_REVIEW);
-            ps.setInt(1, review.getPid());
-            ps.setInt(2, review.getCid());
-            ps.setInt(3, review.getRate());
-            ps.setString(4, review.getTitle());
-            ps.setString(5, review.getContent());
-            ps.setString(6, review.getImg());
-            ps.setInt(7, review.getRid());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-        }
-        return review;
+        return null;
     }
 
     @Override

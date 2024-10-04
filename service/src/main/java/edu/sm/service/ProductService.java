@@ -125,19 +125,6 @@ public class ProductService implements MService<Integer, Product> {
         return products;
     }
 
-    public List<Product> getProductsSortedBy(String sortBy, Integer categoryId) throws Exception {
-        Connection conn = cp.getConnection();
-        List<Product> products = null;
-        try {
-            products = dao.selectAllSortedBy(sortBy, categoryId, conn);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return products;
-    }
-
     // 공개된 상품을 카테고리별로 조회
     public List<Product> getPublicProductsByCategory(int categoryId) throws Exception {
         Connection conn = cp.getConnection();

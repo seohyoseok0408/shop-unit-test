@@ -14,68 +14,12 @@ public class ProductDao implements Dao<Integer, Product> {
 
     @Override
     public Product insert(Product product, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        ResultSet generatedKeys = null; // 추가
-        try {
-            ps = conn.prepareStatement(Sql.INSERT_PRODUCT, PreparedStatement.RETURN_GENERATED_KEYS); // RETURN_GENERATED_KEYS 옵션 사용
-            ps.setInt(1, product.getCategoryId());
-            ps.setInt(2, product.getDisId());
-            ps.setString(3, product.getPname());
-            ps.setInt(4, product.getPrice());
-            ps.setInt(5, product.getCnt());
-            ps.setString(6, product.getImg1());
-            ps.setString(7, product.getImg2());
-            ps.setString(8, product.getImg3());
-            ps.setString(9, product.getImg4());
-            ps.setString(10, product.getContent());
-            ps.setBoolean(11, product.isPublic());
-
-            int affectedRows = ps.executeUpdate();
-            if (affectedRows == 0) {
-                throw new Exception("상품 삽입에 실패하였습니다. (영향을 받은 행이 없습니다)");
-            }
-
-            // 자동 생성된 키 가져오기
-            generatedKeys = ps.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                product.setPid(generatedKeys.getInt(1)); // 삽입된 상품 ID 설정
-            } else {
-                throw new Exception("상품 삽입에 실패하였습니다. (생성된 ID를 가져올 수 없습니다)");
-            }
-
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (generatedKeys != null) generatedKeys.close(); // 추가: ResultSet 닫기
-            if (ps != null) ps.close();
-        }
-        return product;
+        return null;
     }
 
     @Override
     public Product update(Product product, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement(Sql.UPDATE_PRODUCT);
-            ps.setInt(1, product.getCategoryId());
-            ps.setInt(2, product.getDisId());
-            ps.setString(3, product.getPname());
-            ps.setInt(4, product.getPrice());
-            ps.setInt(5, product.getCnt());
-            ps.setString(6, product.getImg1());
-            ps.setString(7, product.getImg2());
-            ps.setString(8, product.getImg3());
-            ps.setString(9, product.getImg4());
-            ps.setString(10, product.getContent());
-            ps.setBoolean(11, product.isPublic());
-            ps.setInt(12, product.getPid());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-        }
-        return product;
+      return null;
     }
 
     @Override
@@ -120,36 +64,7 @@ public class ProductDao implements Dao<Integer, Product> {
 
     @Override
     public List<Product> select(Connection conn) throws Exception {
-        List<Product> products = new ArrayList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            ps = conn.prepareStatement(Sql.SELECT_ALL_PRODUCTS);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                products.add(new Product(
-                        rs.getInt("pid"),
-                        rs.getInt("category_id"),
-                        rs.getInt("dis_id"),
-                        rs.getString("pname"),
-                        rs.getInt("price"),
-                        rs.getInt("cnt"),
-                        rs.getString("img1"),
-                        rs.getString("img2"),
-                        rs.getString("img3"),
-                        rs.getString("img4"),
-                        rs.getString("content"),
-                        rs.getTimestamp("pdate"),
-                        rs.getBoolean("is_public")
-                ));
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-        return products;
+       return null;
     }
     public List<Product> selectPublicProducts(Connection conn) throws Exception {
         List<Product> products = new ArrayList<>();
@@ -254,47 +169,6 @@ public class ProductDao implements Dao<Integer, Product> {
             if (ps != null) ps.close();
             if (rs != null) rs.close();
         }
-        return products;
-    }
-
-    public List<Product> selectAllSortedBy(String sortBy, Integer categoryId, Connection conn) throws Exception {
-        List<Product> products = new ArrayList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        try {
-            String query = getQueryForSorting(sortBy); // 정렬 기준에 따른 SQL 쿼리 결정
-            ps = conn.prepareStatement(query);
-
-            // 카테고리 번호가 있으면 category_id로 필터링, 없으면 전체
-            if (categoryId != null) {
-                ps.setInt(1, categoryId); // category_id
-                ps.setInt(2, categoryId); // 두 번째 파라미터는 OR 조건 처리
-            } else {
-                ps.setNull(1, java.sql.Types.INTEGER);
-                ps.setNull(2, java.sql.Types.INTEGER);
-            }
-
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Product product = new Product();
-                product.setPid(rs.getInt("pid"));
-                product.setPname(rs.getString("pname"));
-                product.setPrice(rs.getInt("price"));
-                product.setCnt(rs.getInt("cnt"));
-                product.setImg1(rs.getString("img1"));
-                product.setContent(rs.getString("content"));
-                product.setPdate(rs.getTimestamp("pdate"));
-                products.add(product);
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-
         return products;
     }
 

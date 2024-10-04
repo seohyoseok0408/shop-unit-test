@@ -13,14 +13,6 @@ public class CategoryService implements MService<Integer, Category> {
     CategoryDao dao;
     ConnectionPool cp;
 
-    public CategoryService() {
-        dao = new CategoryDao();
-        try {
-            cp = ConnectionPool.create();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public Category add(Category category) throws Exception {

@@ -29,31 +29,7 @@ public class PayDao implements Dao<Integer, Pay> {
 
     // 특정 주문 ID(oid)에 대한 결제 정보 조회
     public Pay selectByOrderId(int oid, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Pay pay = null;
-        try {
-            ps = conn.prepareStatement(Sql.SELECT_PAY_BY_ORDER_ID);
-            ps.setInt(1, oid);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                pay = new Pay(
-                        rs.getInt("pay_id"),
-                        rs.getInt("oid"),
-                        rs.getInt("pay_price"),
-                        rs.getString("pay_method"),
-                        rs.getLong("card"),
-                        rs.getTimestamp("pay_date")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-        return pay;
+       return null;
     }
 
     @Override

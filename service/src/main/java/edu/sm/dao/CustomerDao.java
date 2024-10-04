@@ -37,23 +37,7 @@ public class CustomerDao implements Dao<Integer, Customer> {
 
     @Override
     public Customer update(Customer customer, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement(Sql.UPDATE_CUSTOMER);
-            ps.setString(1, customer.getCname());
-            ps.setString(2, customer.getEmail());
-            ps.setString(3, customer.getPhone());
-            ps.setString(4, customer.getNick_name());
-            ps.setInt(5, customer.getCid());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-        }
-        return customer;
+        return null;
     }
 
     @Override
@@ -112,35 +96,7 @@ public class CustomerDao implements Dao<Integer, Customer> {
 
     @Override
     public List<Customer> select(Connection con) throws Exception {
-        List<Customer> customers = new ArrayList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            ps = con.prepareStatement(Sql.SELECT_CUSTOMER_ALL);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Customer customer = new Customer();
-                customer.setCid(rs.getInt("cid"));
-                customer.setEmail(rs.getString("email"));
-                customer.setCname(rs.getString("cname"));
-                customer.setPhone(rs.getString("phone"));
-                customer.setBirth_date(rs.getDate("birth_date"));
-                customer.setNick_name(rs.getString("nick_name"));
-                customer.setGrade(rs.getInt("grade"));
-                customer.setJoin_date(rs.getTimestamp("join_date"));
-                customers.add(customer);
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-            if (rs != null) {
-                rs.close();
-            }
-        }
-        return customers;  // 리스트 반환
+        return null;
     }
 
 

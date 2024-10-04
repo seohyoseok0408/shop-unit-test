@@ -89,61 +89,12 @@ public class ReviewDao implements Dao<Integer, Review> {
 
     @Override
     public Review select(Integer rid, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Review review = null;
-        try {
-            ps = conn.prepareStatement(Sql.SELECT_ONE_REVIEW);
-            ps.setInt(1, rid);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                review = new Review(
-                        rs.getInt("rid"),
-                        rs.getInt("pid"),
-                        rs.getInt("cid"),
-                        rs.getInt("rate"),
-                        rs.getString("title"),
-                        rs.getString("content"),
-                        rs.getString("img"),
-                        rs.getTimestamp("rdate")
-                );
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-        return review;
+        return null;
     }
 
     @Override
     public List<Review> select(Connection conn) throws Exception {
-        List<Review> reviews = new ArrayList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            ps = conn.prepareStatement(Sql.SELECT_ALL_REVIEWS);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                reviews.add(new Review(
-                        rs.getInt("rid"),
-                        rs.getInt("pid"),
-                        rs.getInt("cid"),
-                        rs.getInt("rate"),
-                        rs.getString("title"),
-                        rs.getString("content"),
-                        rs.getString("img"),
-                        rs.getTimestamp("rdate")
-                ));
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-        return reviews;
+       return null;
     }
 
     // 상품 ID로 모든 리뷰 조회

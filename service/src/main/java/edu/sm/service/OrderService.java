@@ -80,34 +80,6 @@ public class OrderService implements MService<Integer, Order> {
         return orders;
     }
 
-    public List<Order> getOrdersByStatus(String status) throws Exception {
-        Connection conn = cp.getConnection();
-        List<Order> orders = null;
-        try {
-            orders = dao.selectOrdersByStatus(status, conn); // 상태별 주문 조회 실행
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return orders;
-    }
-
-    public void changeOrderStatus(int oid, String status) throws Exception {
-        Connection conn = cp.getConnection();
-        try {
-            conn.setAutoCommit(false); // 트랜잭션 시작
-            dao.updateOrderStatus(oid, status, conn); // 상태 업데이트
-            conn.commit(); // 커밋
-            System.out.println("주문 상태가 " + status + "로 변경되었습니다.");
-        } catch (Exception e) {
-            conn.rollback(); // 오류 발생 시 롤백
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-    }
-
 
     // 특정 고객의 주문 목록을 조회하는 메서드
     public List<Order> getByCustomerId(int cid) throws Exception {
@@ -121,33 +93,5 @@ public class OrderService implements MService<Integer, Order> {
             cp.releaseConnection(conn);
         }
         return orders;
-    }
-
-    // 일별 주문 통계
-    public List<Map<String, Object>> getDailyOrderStats() throws Exception {
-        Connection conn = cp.getConnection();
-        List<Map<String, Object>> stats;
-        try {
-            stats = dao.selectDailyOrderStats(conn);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return stats;
-    }
-
-    // 월별 주문 통계
-    public List<Map<String, Object>> getMonthlyOrderStats() throws Exception {
-        Connection conn = cp.getConnection();
-        List<Map<String, Object>> stats;
-        try {
-            stats = dao.selectMonthlyOrderStats(conn);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return stats;
     }
 }

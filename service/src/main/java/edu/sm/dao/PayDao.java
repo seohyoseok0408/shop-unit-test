@@ -72,60 +72,12 @@ public class PayDao implements Dao<Integer, Pay> {
 
     @Override
     public Pay select(Integer payId, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Pay pay = null;
-        try {
-            ps = conn.prepareStatement(Sql.SELECT_PAY_BY_ID);
-            ps.setInt(1, payId);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                pay = new Pay(
-                        rs.getInt("pay_id"),
-                        rs.getInt("oid"),
-                        rs.getInt("pay_price"),
-                        rs.getString("pay_method"),
-                        rs.getLong("card"),
-                        rs.getTimestamp("pay_date")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-        return pay;
+        return null;
     }
 
     @Override
     public List<Pay> select(Connection conn) throws Exception {
-        List<Pay> pays = new ArrayList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            ps = conn.prepareStatement(Sql.SELECT_ALL_PAY);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Pay pay = new Pay(
-                        rs.getInt("pay_id"),
-                        rs.getInt("oid"),
-                        rs.getInt("pay_price"),
-                        rs.getString("pay_method"),
-                        rs.getLong("card"),
-                        rs.getTimestamp("pay_date")
-                );
-                pays.add(pay);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-        return pays;
+        return null;
     }
 
 }

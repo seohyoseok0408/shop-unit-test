@@ -58,29 +58,7 @@ public class OrderDetailDao implements Dao<Integer, OrderDetail> {
 
     @Override
     public OrderDetail select(Integer id, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        OrderDetail orderDetail = null;
-        try {
-            ps = conn.prepareStatement(Sql.SELECT_ORDER_DETAIL_BY_ID);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                orderDetail = new OrderDetail(
-                        rs.getInt("order_detail_id"),
-                        rs.getInt("pid"),
-                        rs.getInt("oid"),
-                        rs.getInt("item_cnt"),
-                        rs.getInt("od_price")
-                );
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        }
-        return orderDetail;
+        return null;
     }
 
     @Override
